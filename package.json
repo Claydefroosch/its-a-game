@@ -1,0 +1,28 @@
+{
+  "name": "its-a-game",
+  "version": "1.0.0",
+  "description": "My first own project to build a multiplayer game with socketIO.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Claydefroosch/its-a-game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Claydefroosch/its-a-game/issues"
+  },
+  "homepage": "https://github.com/Claydefroosch/its-a-game#readme",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "request": "^2.88.2",
+    "socket.io": "^3.0.3"
+  }
+}
