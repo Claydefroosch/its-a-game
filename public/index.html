@@ -1,30 +1,52 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The MovieDB Quiz</title>
-</head>
-<body>
+  </head>
 
+  <body>
     <div id="main">
-        <em><strong>{{title}}</strong></em>
+      <movie-information
+        :img-url="imgURL"
+        :title="title"
+        :description="description"
+        :img-base-url="imgBaseUrl"
+      ></movie-information>
 
-        {{description}}
-        {{movieId}}
+      <h1>Welcome to the first Description Quiz</h1>
+      <p>This is your next movie</p>
+      {{title}}, {{movieId}} {{description}} {{imgBaseUrl}},
 
+      <img v-bind:src="imgURL" alt="bild" />
 
+      <button @click="getMovie">Klick mich für film</button>
     </div>
-    <h1>Welcome to the first Description Quiz</h1>
-    <p>This is your next movie</p>
-    <img src="" alt="">
+
     <h2 id="movieDescription"></h2>
     <textarea name="" id="" cols="30" rows="10"></textarea>
 
-<script src="./js/vue.js"></script>
-<script src="./js/axios.min.js"></script>
-<script src="./js/script.js"></script>
+    <!-- Templates -->
+
+    <script id="tmplMovieInfo" type="text/x-template">
+      <div>
+
+        <h1>Templatehausen!!!!</h1>
+        <h2>
+          {{title}}</h2>
+          <p>{{description}}, {{imgBaseUrl}}, {{imgURL}} </p>
 
 
-</body>
+
+
+      </div>
+    </script>
+
+    <!-- Scripts -->
+
+    <script src="./js/vue.js"></script>
+    <script src="./js/axios.min.js"></script>
+    <script src="./js/script.js"></script>
+  </body>
 </html>
