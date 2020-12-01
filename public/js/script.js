@@ -14,8 +14,11 @@ new Vue({
   },
   mounted: function () {
     console.log("mounted");
+    self = this;
     axios.get("/getMovie").then((result) => {
-      console.log("this is the result", result);
+      console.log("this is the result", result.data);
+      self.title = result.data.title;
+      self.description = result.data.overview;
     });
   },
 
