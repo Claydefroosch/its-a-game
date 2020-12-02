@@ -3,7 +3,16 @@ Vue.component("movie-information", {
   data: function () {
     return {};
   },
-  props: ["title", "description", "imgBaseUrl", "imgURL"],
+  props: ["title", "description", "imgBaseUrl", "poster"],
+  methods: {},
+});
+
+Vue.component("movie-poster", {
+  template: "#tmplMoviePoster",
+  data: function () {
+    return {};
+  },
+  props: ["title", "description", "imgBaseUrl", "poster", "message"],
   methods: {},
 });
 
@@ -13,23 +22,15 @@ new Vue({
     message: "Welcome to the Quiz",
     greetee: "World",
     basicUrl: "https://api.themoviedb.org/3/movie/",
-    movieId: parseInt(Math.random() * (25000 - 1 + 1), 10) + 1,
     title: null,
     description: null,
-    imgBaseUrl: null,
-    imgWidth: null,
+    imgBaseUrl: "https://image.tmdb.org/t/p/",
+    imgWidth: "w500",
     imgPath: null,
-    imgURL: null,
+    poster: null,
   },
   created: function () {
     console.log("created");
-    axios.get("/getConfig").then((result) => {
-      console.log("this is the config", result);
-
-      self.imgBaseUrl = result.data.images.secure_base_url;
-      self.imgWidth = result.data.images.poster_sizes[4];
-      console.log("this should be the baseURL", self.imgBaseUrl);
-    });
   },
   mounted: function () {
     console.log("mounted");
@@ -39,19 +40,34 @@ new Vue({
     console.log("updated");
   },
   methods: {
-    clicker: function () {
-      console.log("clicked!!");
-      this.greetee = "Kitty";
-    },
     getMovie: function () {
       console.log("getting the movie");
       self = this;
       axios.get("/getMovie").then((result) => {
-        console.log("das klickresultat", result);
-        self.title = result.data.title;
-        self.description = result.data.overview;
-        self.imgPath = result.data.poster_path;
-        self.imgURL = self.imgBaseUrl + self.imgWidth + result.data.poster_path;
+        console.log("success?", result.data.success);
+
+        if (result.data.success === false) {
+          this.getMovie();
+        } else {
+          console.log("das klickresultat", result);
+          self.title = result.data.title;
+          self.description = result.data.overview;
+          self.imgPath = result.data.poster_path;
+          self.poster = self.imgBaseUrl + self.imgWidth + result.data.poster_path;
+          self.message = "Leite mal weiter du hund";
+
+          console.log("the poster man", self.poster);
+          console.log("the self base imgURL man", self.imgBaseUrl);
+        }
+      });
+    },
+    getConfig: function () {
+      axios.get("/getConfig").then((result) => {
+        console.log("this is the config", result);
+
+        self.imgBaseUrl = result.data.images.secure_base_url;
+        self.imgWidth = result.data.images.poster_sizes[4];
+        console.log("this should be the baseURL", result.data.images.poster_sizes[4]);
       });
     },
   },

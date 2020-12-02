@@ -8,20 +8,18 @@
 
   <body>
     <div id="main">
+      <h1>Welcome to the first Description Quiz</h1>
+      <p>This is your next movie</p>
+
       <movie-information
-        :img-url="imgURL"
+        :poster="poster"
         :title="title"
         :description="description"
         :img-base-url="imgBaseUrl"
       ></movie-information>
-
-      <h1>Welcome to the first Description Quiz</h1>
-      <p>This is your next movie</p>
-      {{title}}, {{movieId}} {{description}} {{imgBaseUrl}},
-
-      <img v-bind:src="imgURL" alt="bild" />
-
       <button @click="getMovie">Klick mich für film</button>
+      <!--       <movie-poster :poster="poster" :message="message"></movie-poster>
+ -->
     </div>
 
     <h2 id="movieDescription"></h2>
@@ -35,8 +33,22 @@
         <h1>Templatehausen!!!!</h1>
         <h2>
           {{title}}</h2>
-          <p>{{description}}, {{imgBaseUrl}}, {{imgURL}} </p>
+          <p>{{description}}, {{imgBaseUrl}}, {{poster}} </p>
 
+          <img v-bind:src="poster" alt="bild" />
+
+
+
+      </div>
+    </script>
+
+    <script id="tmplMoviePoster" type="text/x-template">
+      <div>
+
+        <h2>Here should be a URL</h2>
+          <p> Right here: {{message}} {{poster}}</p>
+
+          <img v-bind:src="poster" alt="bild" />
 
 
 
