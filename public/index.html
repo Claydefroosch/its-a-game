@@ -4,53 +4,86 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The MovieDB Quiz</title>
+    <link rel="stylesheet" href="public\style.css" />
   </head>
 
   <body>
     <div id="main">
-      <h1>Welcome to the first Description Quiz</h1>
-      <p>This is your next movie</p>
+      <header>
+        <img id="headerLogo" src="public\static\logo.png" alt="" />
+      </header>
 
-      <movie-information
-        :poster="poster"
+      <score-board :score="score"></score-board>
+
+      <welcome-component v-if="init" :init="init" :title="title" @clicked="startGame"></welcome-component>
+      <movie-question
+        v-if="started"
         :title="title"
         :description="description"
-        :img-base-url="imgBaseUrl"
-      ></movie-information>
-      <button @click="getMovie">Klick mich für film</button>
-      <!--       <movie-poster :poster="poster" :message="message"></movie-poster>
- -->
+        @submit="showSolution"
+        @minus="minusPoints"
+      ></movie-question>
+      <movie-solution
+        v-if="solution"
+        :title="title"
+        :poster="poster"
+        @nexttitle="getMovie"
+        :right="right"
+        :wrong="wrong"
+      ></movie-solution>
     </div>
-
-    <h2 id="movieDescription"></h2>
-    <textarea name="" id="" cols="30" rows="10"></textarea>
 
     <!-- Templates -->
 
-    <script id="tmplMovieInfo" type="text/x-template">
-      <div>
+    <script id="tmplWelcome" type="text/x-template">
+      <div id="welcomeBox">
+          <h2>SO YOU THINK THAT YOU ARE A MOVIE GEEK?</h2>
+          <p>
+            lets find it out on "What the Flick". The ultimate Quiz for Movie Fans. <br />
+            Press the button when you are ready!
+          </p>
+          <button @click="startButton">Start Quiz</button>
+        </div>
+    </script>
 
-        <h1>Templatehausen!!!!</h1>
-        <h2>
-          {{title}}</h2>
-          <p>{{description}}, {{imgBaseUrl}}, {{poster}} </p>
+    <script id="tmplMovieQuestion" type="text/x-template">
+      <div id="movieInformation">
 
-          <img v-bind:src="poster" alt="bild" />
+       <h3 id="tryOut">Tries: {{tryOut}}</h3>
 
+        <p>{{description}}</p>
+        <div id="wrong"><p>{{error}}</p></div>
+        <input type="text" name="userAnswer" v-model="userAnswer" placeholder="Your answer" autocomplete="off" @keyup.enter="logAnswer"
+        >
+
+        <br />
+        <button @click="logAnswer">Submit</button>
 
 
       </div>
     </script>
 
-    <script id="tmplMoviePoster" type="text/x-template">
-      <div>
-
-        <h2>Here should be a URL</h2>
-          <p> Right here: {{message}} {{poster}}</p>
-
-          <img v-bind:src="poster" alt="bild" />
+    <script id="tmplMovieSolution" type="text/x-template">
+      <div id="movieSolution">
 
 
+
+        <p v-if="right"id="itsRight">That´s right!</p>
+        <p v-if="wrong"id="itsWrong">You didn´t guess right</p>
+
+        <img v-bind:src="poster" alt="bild" />
+        <h2>{{title}}</h2>
+
+        <button @click="nextMovie">Next Movie</button>
+
+
+      </div>
+    </script>
+
+    <script id="tmplScoreBoard" type="text/x-template">
+      <div id="scoreBoard">
+
+        <p>{{score}}</p>
 
       </div>
     </script>

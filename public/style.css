@@ -1,82 +1,283 @@
-body {
-  background: paleturquoise;
-  font-family: Arial, Helvetica, sans-serif;
+* {
+  margin: 0;
 }
 
-h1 {
-  max-width: 960px;
-  margin: 20px auto;
-  padding: 0;
+body {
+  background-image: url("/public/static/moviebg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100vh;
+}
+
+@font-face {
+  font-family: motionpicture;
+  src: url(/public/static/font-motionpicture.ttf);
+}
+
+@font-face {
+  font-family: leaguespartan;
+  src: url(/public/static/LeagueSpartan-Bold.otf);
+}
+
+@font-face {
+  font-family: adventure;
+  src: url(/public/static/Adventure.ttf);
+}
+
+@font-face {
+  font-family: adventureOutline;
+  src: url(/public/static/Adventure\ Outline.ttf);
+}
+
+h1,
+h2 {
+  font-family: leaguespartan;
+  color: #80abf4;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+p {
+  font-family: adventure;
 }
 
 header {
-  background: cadetblue;
-  padding: 20px;
-  max-width: 960px;
-  margin: auto;
-  display: flex;
-}
-header input,
-header select,
-header button {
-  font-size: 20px;
-  padding: 4px 8px;
-  background: lightcyan;
-  border: 0;
-}
-header input {
-  flex-grow: 1;
-  margin-right: 10px;
-}
+  width: 400px;
+  text-align: left;
+  padding: 20px 20px 20px 20px;
 
-header select {
-  margin-right: 10px;
-}
+  border-radius: 0 0 200px 0;
 
-main {
-  max-width: 960px;
-  margin: auto;
-  background: cadetblue;
-  padding: 20px;
-  margin-top: 10px;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 10px;
-}
-
-main div {
-  background: white;
-  height: 200px;
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
-  position: relative;
-}
-
-main div span {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.5);
   color: white;
-  padding: 10px;
+  background-color: rgb(3, 28, 64, 0.9);
+}
+
+header img {
+  width: 300px;
+  padding: 20px;
+}
+
+#scoreBoard {
+  position: absolute;
+  top: 10%;
+  left: 90%;
+  transform: translate(-50%, -50%);
+
   text-align: center;
+  padding: 10px 20px;
+
+  border: solid 8px #80abf4;
+  border-radius: 10px;
+  font-size: 32px;
+  color: white;
+  background-color: #fb6af3;
+  z-index: 10;
 }
 
-main img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+#welcomeBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 500px;
+  height: 500px;
+  text-align: center;
+
+  padding: 250px 50px 0 50px;
+
+  color: white;
+  background-color: rgb(3, 28, 64, 0.9);
 }
 
-#more {
-  background: darkslategray;
-  margin: auto;
-  display: block;
-  padding: 10px 15px;
-  color: azure;
-  border: 0;
-  width: 200px;
+#welcomeBox p {
+  padding-top: 20px;
+  font-size: 24px;
+  color: white;
+}
+
+#welcomeBox button {
+  font-family: leaguespartan;
+
+  font-size: 20px;
+  min-width: 200px;
+  background-color: #fb6af3;
+  color: white;
+  padding: 14px 20px;
+  margin-top: 10%;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.3);
+  transition: background-color 0.4s;
+}
+
+#welcomeBox button:hover {
+  font-family: leaguespartan;
+
+  font-size: 20px;
+  min-width: 200px;
+  background-color: #80abf4;
+  color: white;
+  padding: 14px 20px;
+  margin-top: 10%;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.3);
+}
+
+#movieInformation {
+  position: absolute;
+  width: 1800px;
+  top: 60%;
+  left: 50%;
+  padding: 30px 50px 30px 50px;
+  transform: translate(-50%, -50%);
+
+  text-align: center;
+
+  color: white;
+  background-color: rgb(3, 28, 64, 0.9);
+}
+
+#movieInformation p {
+  font-size: 32px;
+  padding: 0 400px 0 400px;
+}
+
+#movieInformation input {
+  font-family: leaguespartan;
+  text-align: center;
+  padding: 10px;
   margin-top: 20px;
-  display: none;
+  font-size: 40px;
+}
+
+#movieInformation button {
+  font-family: leaguespartan;
+
+  font-size: 20px;
+  min-width: 200px;
+  background-color: #fb6af3;
+  color: white;
+  margin-top: 10px;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.3);
+  transition: background-color 0.4s;
+}
+
+#movieInformation button:hover {
+  font-family: leaguespartan;
+
+  font-size: 20px;
+  min-width: 200px;
+  background-color: #80abf4;
+  color: white;
+  padding: 14px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.3);
+}
+
+#wrong {
+  margin-top: 10px;
+  background-color: red;
+  margin: 10px 350px 0 350px;
+}
+
+#movieSolution {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 500px;
+  height: 500px;
+  text-align: center;
+
+  padding: 50px 50px 50px 50px;
+
+  color: white;
+  background-color: rgb(3, 28, 64, 0.9);
+}
+
+#movieSolution img {
+  width: 250px;
+}
+
+#movieSolution p {
+  color: white;
+  margin: 0 100px 10px 100px;
+  border-radius: 10px;
+}
+
+#itsRight {
+  background-color: green;
+}
+
+#itsWrong {
+  background-color: red;
+}
+
+#movieSolution h2 {
+  color: white;
+}
+
+#movieSolution button {
+  font-family: leaguespartan;
+
+  font-size: 20px;
+  min-width: 200px;
+  background-color: #fb6af3;
+  color: white;
+  margin: 10px 0;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.3);
+  transition: background-color 0.4s;
+}
+
+#movieSolution button:hover {
+  font-family: leaguespartan;
+
+  font-size: 20px;
+  min-width: 200px;
+  background-color: #80abf4;
+  color: white;
+  padding: 14px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.3);
+}
+
+#tryOut {
+  font-family: leaguespartan;
+
+  padding: 10px 20px;
+  margin: 0 800px 20px 800px;
+  border: solid 8px #80abf4;
+  border-radius: 10px;
+  font-size: 20px;
+  color: white;
+  background-color: #fb6af3;
 }
