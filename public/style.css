@@ -68,7 +68,8 @@ header img {
   transform: translate(-50%, -50%);
 
   text-align: center;
-  padding: 10px 20px;
+  padding: 10px 10px;
+  width: 200px;
 
   border: solid 8px #80abf4;
   border-radius: 10px;
@@ -156,8 +157,8 @@ header img {
   font-family: leaguespartan;
   text-align: center;
   padding: 10px;
-  margin-top: 20px;
-  font-size: 40px;
+  margin: 20px 0;
+  font-size: 32px;
 }
 
 #movieInformation button {
@@ -275,9 +276,83 @@ header img {
 
   padding: 10px 20px;
   margin: 0 800px 20px 800px;
-  border: solid 8px #80abf4;
-  border-radius: 10px;
-  font-size: 20px;
+  font-size: 18px;
   color: white;
+  background-color: rgba(175, 175, 175, 0.6);
+}
+
+#retryBoard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 500px;
+  height: 500px;
+  text-align: center;
+
+  padding: 50px 50px 50px 50px;
+
+  color: white;
+  background-color: rgb(3, 28, 64, 0.9);
+  z-index: 20;
+}
+
+#retryBoard input {
+  font-family: leaguespartan;
+  text-align: center;
+  padding: 10px;
+  margin: 20px 0;
+  font-size: 24px;
+}
+
+#retryBoard button {
+  font-family: leaguespartan;
+
+  font-size: 20px;
+  min-width: 200px;
   background-color: #fb6af3;
+  color: white;
+  margin: 10px 0;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.3);
+  transition: background-color 0.4s;
+}
+
+#retryBoard button:hover {
+  font-family: leaguespartan;
+
+  font-size: 20px;
+  min-width: 200px;
+  background-color: #80abf4;
+  color: white;
+  padding: 14px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.3);
+}
+
+#retryBoard p {
+  font-size: 32px;
+}
+
+#retryBoard h3 {
+  font-family: leaguespartan;
+  color: #fb6af3;
+  font-size: 24px;
+}
+
+#retryBoard h4 {
+  font-family: leaguespartan;
+  font-size: 14px;
+  background-color: red;
+  border-radius: 10px;
+  margin: 10px 50px;
 }

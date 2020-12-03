@@ -13,15 +13,18 @@
         <img id="headerLogo" src="public\static\logo.png" alt="" />
       </header>
 
-      <score-board :score="score"></score-board>
+      <score-board :score="score" :lives="lives"></score-board>
 
       <welcome-component v-if="init" :init="init" :title="title" @clicked="startGame"></welcome-component>
+      <retry-component v-if="died" :score="score"> </retry-component>
+
       <movie-question
         v-if="started"
         :title="title"
         :description="description"
         @submit="showSolution"
         @minus="minusPoints"
+        @lives="minusLives"
       ></movie-question>
       <movie-solution
         v-if="solution"
@@ -83,9 +86,35 @@
     <script id="tmplScoreBoard" type="text/x-template">
       <div id="scoreBoard">
 
-        <p>{{score}}</p>
+        <p>Lives {{lives}} <br/> Points {{score}}</p>
 
       </div>
+    </script>
+
+    <script id="tmplRetryBoard" type="text/x-template">
+            <div id="retryBoard">
+
+              <div v-if="!submitHighscore">
+              <h2> THE GAME IS OVER</h2>
+              <h3>PUT IT ON THE SCOREBOARD</h3>
+              <p>You achieved <br/>
+                {{score}} Points</p>
+              <h4>{{error}}</h4>
+              <input type="text" name="username" v-model="username" placeholder="Your Name">
+               <br/>
+              <button @click="uploadHighscore" >Upload Score</button>
+            </div>
+
+      <div v-if="submitHighscore" id="scoreboard">
+                      <h2> THE SCOREBOARD</h2>
+             <div v-if="submitHighscore" v-for="user in leaderBoard"  class="imagebox" >
+                <div>
+                    <p>{{user.username}} {{user.score}}</p>
+                </div>
+             </div>
+            </div>
+
+            </div>
     </script>
 
     <!-- Scripts -->

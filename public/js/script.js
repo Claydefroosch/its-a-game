@@ -22,22 +22,20 @@ Vue.component("movie-question", {
   },
   props: ["title", "description", "imgBaseUrl", "poster", "started"],
   methods: {
-    submitAnswer: function () {},
     logAnswer: function () {
       let rightTitle = this.title.toLowerCase();
       let userAnswer = this.userAnswer.toLowerCase();
       if (userAnswer != rightTitle) {
-        console.log("your answer is wrong");
-        console.log(rightTitle);
+        console.log("The Right Title Cheat ===", rightTitle);
         this.error = "that was wrong";
         this.tryOut--;
+        this.$emit("minus");
+
         if (this.tryOut < 1) {
-          console.log("no more tries left");
-          this.$emit("minus");
+          this.$emit("lives");
         }
       } else {
-        console.log("this was right");
-        console.log(userAnswer);
+        this.tryOut = 3;
         this.$emit("submit");
       }
     },
@@ -62,8 +60,35 @@ Vue.component("score-board", {
   data: function () {
     return {};
   },
-  props: ["score"],
+  props: ["score", "lives"],
   methods: {},
+});
+
+Vue.component("retry-component", {
+  template: "#tmplRetryBoard",
+  data: function () {
+    return {
+      username: null,
+      leaderBoard: null,
+      submitHighscore: null,
+      error: null,
+    };
+  },
+  props: ["score", "died"],
+  methods: {
+    uploadHighscore: function () {
+      self = this;
+      if (!this.username) {
+        self.error = "You have to pick a username";
+      } else {
+        let username = this.username;
+        axios.post("/uploadHighscore", { username: this.username, score: this.score }).then((result) => {
+          self.leaderBoard = result.data.rows;
+          self.submitHighscore = true;
+        });
+      }
+    },
+  },
 });
 
 new Vue({
@@ -82,18 +107,13 @@ new Vue({
     right: false,
     wrong: false,
     lives: 3,
+    died: false,
     score: 0,
   },
-  created: function () {
-    console.log("created");
-  },
-  mounted: function () {
-    console.log("mounted");
-  },
+  created: function () {},
+  mounted: function () {},
 
-  updated: function () {
-    console.log("updated");
-  },
+  updated: function () {},
   methods: {
     startGame: function () {
       this.getMovie();
@@ -102,25 +122,18 @@ new Vue({
     },
 
     getMovie: function () {
-      console.log("getting the movie");
       self = this;
       this.solution = false;
       axios.get("/getMovie").then((result) => {
-        console.log("success?", result.data.success);
-
         if (result.data.success === false || result.data.overview == "") {
           this.getMovie();
         } else {
-          console.log("das klickresultat", result);
           self.title = result.data.title;
           self.description = result.data.overview;
           self.imgPath = result.data.poster_path;
           self.poster = self.imgBaseUrl + self.imgWidth + result.data.poster_path;
           self.message = "Leite mal weiter du hund";
           self.started = true;
-
-          console.log("the poster man", self.poster);
-          console.log("the self base imgURL man", self.imgBaseUrl);
         }
       });
     },
@@ -133,20 +146,27 @@ new Vue({
     },
 
     minusPoints: function () {
-      this.started = null;
-      this.solution = true;
-
-      this.wrong = true;
       this.score -= 50;
+    },
+    minusLives: function () {
+      self = this;
+      if (this.lives <= 1) {
+        self.lives -= 1;
+        self.died = true;
+        self.started = null;
+        self.solution = false;
+      } else {
+        self.started = null;
+        self.solution = true;
+        self.wrong = true;
+        self.lives -= 1;
+      }
     },
 
     getConfig: function () {
       axios.get("/getConfig").then((result) => {
-        console.log("this is the config", result);
-
         self.imgBaseUrl = result.data.images.secure_base_url;
         self.imgWidth = result.data.images.poster_sizes[4];
-        console.log("this should be the baseURL", result.data.images.poster_sizes[4]);
       });
     },
   },
